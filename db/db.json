@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "tuan@gmail.com",
+      "password": "1234",
+      "name": "Tuan",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "tuan1@gmail.com",
+      "password": "4321",
+      "name": "Tuan 1",
+      "role": "user"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 12",
+      "categoryId": 1,
+      "price": 18000000
+    },
+    {
+      "id": 2,
+      "name": "iPhone 11",
+      "categoryId": 1,
+      "price": 12000000
+    },
+    {
+      "id": 3,
+      "name": "Samsung Note 20",
+      "categoryId": 2,
+      "price": 18500000
+    },
+    {
+      "id": 4,
+      "name": "Samsung S20+",
+      "categoryId": 2,
+      "price": 15000000
+    },
+    {
+      "id": 5,
+      "name": "Mi 11",
+      "categoryId": 3,
+      "price": 11000000
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "iPhone"
+    },
+    {
+      "id": 2,
+      "name": "Samsung"
+    },
+    {
+      "id": 3,
+      "name": "Xiaomi"
+    }
+  ],
+  "productOptions": [
+    {
+      "id": 1,
+      "productId": 1,
+      "title": "Vàng",
+      "price": 2000000
+    },
+    {
+      "id": 2,
+      "productId": 1,
+      "title": "Đen",
+      "price": 1000000
+    },
+    {
+      "id": 3,
+      "productId": 1,
+      "title": "Xanh",
+      "price": 0
+    },
+    {
+      "id": 4,
+      "productId": 1,
+      "title": "Trắng",
+      "price": 1000000
+    },
+    {
+      "id": 5,
+      "productId": 3,
+      "title": "Mắm tôm",
+      "price": 2500000
+    },
+    {
+      "id": 6,
+      "productId": 3,
+      "title": "Trắng",
+      "price": 0
+    }
+  ]
+}
