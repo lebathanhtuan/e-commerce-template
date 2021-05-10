@@ -45,6 +45,30 @@
       "name": "Mi 11",
       "categoryId": 3,
       "price": 11000000
+    },
+    {
+      "id": 6,
+      "name": "Mi Note 10",
+      "categoryId": 3,
+      "price": 9000000
+    },
+    {
+      "id": 7,
+      "name": "Mi Mix 4",
+      "categoryId": 3,
+      "price": 7000000
+    },
+    {
+      "id": 8,
+      "name": "Redmi K40",
+      "categoryId": 3,
+      "price": 8500000
+    },
+    {
+      "id": 9,
+      "name": "Redmi Note 10",
+      "categoryId": 3,
+      "price": 4000000
     }
   ],
   "categories": [
