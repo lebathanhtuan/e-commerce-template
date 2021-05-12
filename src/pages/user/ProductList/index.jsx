@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Card, List } from 'antd';
+import { Row, Col, Card, List, Button } from 'antd';
 
 import history from '../../../utils/history';
 
@@ -13,23 +13,35 @@ function ProductListPage({
   categoryList,
   productList,
 }) {
-  const [categorySelected, setCategorySelected] = useState(null);
-  console.log('🚀 ~ file: index.jsx ~ line 15 ~ categorySelected', categorySelected);
+  const [categorySelected, setCategorySelected] = useState(undefined);
+  // const [page, setPage] = useState(1);
 
   useEffect(() => {
     getCategoryList();
     getProductList({
       page: 1,
-      limit: 10,
+      limit: 4,
     });
   }, []);
 
   function handleFilterCategory(id) {
     setCategorySelected(id);
+    // setPage(1);
     getProductList({
       page: 1,
-      limit: 10,
+      limit: 4,
       categoryId: id,
+    });
+  }
+
+  function handleShowMore() {
+    // setPage(page + 1);
+    getProductList({
+      more: true,
+      // page: page + 1,
+      page: productList.page + 1,
+      limit: 4,
+      categoryId: categorySelected,
     });
   }
 
@@ -75,6 +87,9 @@ function ProductListPage({
         <Row gutter={[8, 8]}>
           {renderProductList()}
         </Row>
+        {productList.data.length % 4 === 0 && (
+          <Button onClick={() => handleShowMore()}>Show more</Button>
+        )}
       </Col>
     </Row>
   );

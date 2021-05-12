@@ -1,6 +1,7 @@
 const initialState = {
   productList: {
     data: [],
+    page: 1,
     load: false,
     error: '',
   },
@@ -31,14 +32,30 @@ export default function productReducer(state = initialState, action) {
       }
     }
     case 'GET_PRODUCT_LIST_SUCCESS': {
-      const { data } = action.payload;
-      return {
-        ...state,
-        productList: {
-          ...state.productList,
-          data: data,
-          load: false,
-        },
+      const { data, page, more } = action.payload;
+      if (more) {
+        return {
+          ...state,
+          productList: {
+            ...state.productList,
+            data: [
+              ...state.productList.data,
+              ...data,
+            ],
+            page: page,
+            load: false,
+          },
+        }
+      } else {
+        return {
+          ...state,
+          productList: {
+            ...state.productList,
+            data: data,
+            page: page,
+            load: false,
+          },
+        }
       }
     }
     case 'GET_PRODUCT_LIST_FAIL': {

@@ -8,6 +8,7 @@ import PrivateLayout from './components/layouts/PrivateLayout';
 
 import UserProductListPage from './pages/user/ProductList';
 import UserProductDetailPage from './pages/user/ProductDetail';
+import UserCartListPage from './pages/user/CartList';
 
 import AdminProductListPage from './pages/admin/ProductList';
 
@@ -19,6 +20,7 @@ function BrowserRouter() {
       <Switch>
         <DefaultLayout exact path="/" component={UserProductListPage} />
         <DefaultLayout exact path="/product/:id" component={UserProductDetailPage} />
+        <DefaultLayout exact path="/carts" component={UserCartListPage} />
         <PrivateLayout exact path="/admin/products" component={AdminProductListPage} />
         <LoginLayout exact path="/login" component={LoginPage} />
       </Switch>

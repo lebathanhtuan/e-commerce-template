@@ -3,13 +3,14 @@ import { Space, Button } from 'antd';
 
 import history from '../../../utils/history';
 
-function Header({ userInfo }) {
+function Header({ userInfo, cartList }) {
   return (
     <div>
       {userInfo.data.id 
         ? (
           <Space>
             <p>{`Tên đăng nhập: ${userInfo.data.name}`}</p>
+            <p>{`Giỏ hàng: ${cartList.data.length}`}</p>
             <Button>Đăng xuất</Button>
           </Space>
         )
@@ -21,9 +22,10 @@ function Header({ userInfo }) {
 
 const mapStateToProps = (state) => {
   const { userInfo } = state.userReducer;
-  console.log('🚀 ~ file: index.jsx ~ line 13 ~ mapStateToProps ~ userInfo', userInfo);
+  const { cartList } = state.cartReducer;
   return {
     userInfo,
+    cartList,
   }
 };
 

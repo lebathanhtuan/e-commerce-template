@@ -122,5 +122,43 @@
       "title": "Trắng",
       "price": 0
     }
+  ],
+  "orders": [
+    {
+      "userId": 1,
+      "isPay": false,
+      "carts": [
+        {
+          "productId": 1,
+          "count": 1,
+          "name": "iPhone 12",
+          "price": 18000000,
+          "option": {
+            "id": 1,
+            "title": "Vàng",
+            "price": 2000000
+          }
+        },
+        {
+          "productId": 1,
+          "count": 2,
+          "name": "iPhone 12",
+          "price": 18000000,
+          "option": {
+            "id": 3,
+            "title": "Xanh",
+            "price": 0
+          }
+        },
+        {
+          "productId": 5,
+          "count": 2,
+          "name": "Mi 11",
+          "price": 11000000,
+          "option": {}
+        }
+      ],
+      "id": 1
+    }
   ]
 }
