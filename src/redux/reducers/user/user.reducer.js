@@ -6,7 +6,7 @@ const initialState = {
   },
 };
 
-export default function productReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case 'LOGIN_REQUEST': {
       return {

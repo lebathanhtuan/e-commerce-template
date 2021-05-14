@@ -84,11 +84,13 @@ function ProductListPage({
         />
       </Col>
       <Col span={20}>
-        <Row gutter={[8, 8]}>
+        <Row gutter={[8, 8]} style={{ marginBottom: 8 }}>
           {renderProductList()}
         </Row>
         {productList.data.length % 4 === 0 && (
-          <Button onClick={() => handleShowMore()}>Show more</Button>
+          <Row justify="center">
+            <Button onClick={() => handleShowMore()}>Show more</Button>
+          </Row>
         )}
       </Col>
     </Row>

@@ -1,5 +1,9 @@
 import { Route, Redirect } from 'react-router-dom';
+import { Row, Col } from 'antd';
 import Header from '../Header';
+import Sidebar from '../Sidebar';
+
+import * as Style from './styles';
 
 function PrivateLayout(props) {
   const { exact, path, component: Component, ...other } = props;
@@ -19,7 +23,10 @@ function PrivateLayout(props) {
         return (
           <>
             <Header {...routeProps} />
-            <Component {...other} {...routeProps} />
+            <Sidebar {...routeProps} />
+            <Style.MainContainer>
+              <Component {...other} {...routeProps} />
+            </Style.MainContainer>
           </>
         )
       }}

@@ -5,6 +5,7 @@ export function addToCartAction(params) {
   }
 }
 
+// Dùng với kiểu không cần đăng nhập mà vẫn bỏ vào giỏ hàng được
 export function getCartListAction(params) {
   return {
     type: 'GET_CART_LIST_REQUEST',

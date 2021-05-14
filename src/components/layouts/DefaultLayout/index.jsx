@@ -3,10 +3,10 @@ import Header from '../Header';
 
 function DefaultLayout(props) {
   const { exact, path, component: Component, ...other } = props;
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  if (!userInfo) {
-    return <Redirect to="/login" />;
-  }
+  // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  // if (!userInfo) {
+  //   return <Redirect to="/login" />;
+  // }
   return (
     <Route
       exact={exact}

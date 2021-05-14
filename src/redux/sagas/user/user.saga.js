@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import history from '../../utils/history';
+import history from '../../../utils/history';
 
 function* loginSaga(action) {
   try {

@@ -5,14 +5,57 @@
       "email": "tuan@gmail.com",
       "password": "1234",
       "name": "Tuan",
-      "role": "admin"
+      "role": "admin",
+      "carts": [
+        {
+          "productId": 3,
+          "count": 2,
+          "name": "Samsung Note 20",
+          "price": 18500000,
+          "option": {
+            "id": 5,
+            "title": "Mắm tôm",
+            "price": 2500000
+          }
+        },
+        {
+          "productId": 3,
+          "count": 1,
+          "name": "Samsung Note 20",
+          "price": 18500000,
+          "option": {
+            "id": 6,
+            "title": "Trắng",
+            "price": 0
+          }
+        },
+        {
+          "productId": 1,
+          "count": 1,
+          "name": "iPhone 12",
+          "price": 18000000,
+          "option": {
+            "id": 3,
+            "title": "Xanh",
+            "price": 0
+          }
+        },
+        {
+          "productId": 4,
+          "count": 1,
+          "name": "Samsung S20+",
+          "price": 15000000,
+          "option": {}
+        }
+      ]
     },
     {
       "id": 2,
       "email": "tuan1@gmail.com",
       "password": "4321",
       "name": "Tuan 1",
-      "role": "user"
+      "role": "user",
+      "carts": []
     }
   ],
   "products": [
@@ -123,42 +166,5 @@
       "price": 0
     }
   ],
-  "orders": [
-    {
-      "userId": 1,
-      "isPay": false,
-      "carts": [
-        {
-          "productId": 1,
-          "count": 1,
-          "name": "iPhone 12",
-          "price": 18000000,
-          "option": {
-            "id": 1,
-            "title": "Vàng",
-            "price": 2000000
-          }
-        },
-        {
-          "productId": 1,
-          "count": 2,
-          "name": "iPhone 12",
-          "price": 18000000,
-          "option": {
-            "id": 3,
-            "title": "Xanh",
-            "price": 0
-          }
-        },
-        {
-          "productId": 5,
-          "count": 2,
-          "name": "Mi 11",
-          "price": 11000000,
-          "option": {}
-        }
-      ],
-      "id": 1
-    }
-  ]
+  "orders": []
 }

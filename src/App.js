@@ -4,7 +4,7 @@ import Router from './Router';
 
 import {
   getUserInfoAction,
-  getCartListAction,
+  // getCartListAction,
 } from './redux/actions';
 
 function App({ getUserInfo, getCartList }) {
@@ -12,8 +12,9 @@ function App({ getUserInfo, getCartList }) {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo && userInfo.id) {
       getUserInfo({ id: userInfo.id });
-      getCartList({ userId: userInfo.id });
     }
+    // Dùng với kiểu không cần đăng nhập mà vẫn bỏ vào giỏ hàng được
+    // getCartList();
   }, []);
 
   return (
@@ -26,7 +27,8 @@ function App({ getUserInfo, getCartList }) {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUserInfo: (params) => dispatch(getUserInfoAction(params)),
-    getCartList: (params) => dispatch(getCartListAction(params)),
+    // Dùng với kiểu không cần đăng nhập mà vẫn bỏ vào giỏ hàng được
+    // getCartList: (params) => dispatch(getCartListAction(params)),
   };
 }
 
