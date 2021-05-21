@@ -1,12 +1,10 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Header from '../Header';
+
+import * as Style from './styles';
 
 function DefaultLayout(props) {
   const { exact, path, component: Component, ...other } = props;
-  // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  // if (!userInfo) {
-  //   return <Redirect to="/login" />;
-  // }
   return (
     <Route
       exact={exact}
@@ -15,7 +13,9 @@ function DefaultLayout(props) {
         return (
           <>
             <Header {...routeProps} />
-            <Component {...other} {...routeProps} />
+            <Style.MainContainer>
+              <Component {...other} {...routeProps} />
+            </Style.MainContainer>
           </>
         )
       }}

@@ -112,6 +112,12 @@
       "name": "Redmi Note 10",
       "categoryId": 3,
       "price": 4000000
+    },
+    {
+      "name": "iPhone 13 Pro Max",
+      "categoryId": 1,
+      "price": 40000000,
+      "id": 10
     }
   ],
   "categories": [
@@ -164,6 +170,30 @@
       "productId": 3,
       "title": "Trắng",
       "price": 0
+    },
+    {
+      "productId": 2,
+      "title": "Vàng",
+      "price": 100000,
+      "id": 7
+    },
+    {
+      "productId": 4,
+      "title": "Đỏ",
+      "price": 2000000,
+      "id": 9
+    },
+    {
+      "productId": 10,
+      "title": "Hồng",
+      "price": 10000000,
+      "id": 10
+    },
+    {
+      "productId": 10,
+      "title": "Cam",
+      "price": 5000000,
+      "id": 11
     }
   ],
   "orders": []

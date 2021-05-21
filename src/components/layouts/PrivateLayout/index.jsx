@@ -1,5 +1,4 @@
 import { Route, Redirect } from 'react-router-dom';
-import { Row, Col } from 'antd';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
 

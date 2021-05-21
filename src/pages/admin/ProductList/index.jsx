@@ -1,7 +1,27 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Row, Table, Button, Space, Drawer, Form, Input, Select, Popconfirm } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  Row,
+  Table,
+  Button,
+  Space,
+  Drawer,
+  Form,
+  Input,
+  Select,
+  Popconfirm,
+  List,
+  InputNumber,
+  Checkbox,
+  Card,
+} from 'antd';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+
+import ProductOptionItem from './ProductOptionItem';
 
 import {
   getProductListAdminAction,
@@ -9,6 +29,8 @@ import {
   createProductAdminAction,
   editProductAdminAction,
   deleteProductAdminAction,
+  createOptionAdminAction,
+  setProductSelectAction,
 } from '../../../redux/actions'
 
 function ProductListPage({
@@ -19,10 +41,14 @@ function ProductListPage({
   deleteProductAdmin,
   productList,
   categoryList,
+  createOptionAdmin,
+  setProductSelect,
+  productSelected,
 }) {
   const [isShowModify, setIsShowModify] = useState(false);
   // {} là create / Object có data là edit
-  const [productSelected, setProductSelect] = useState({});
+  const [isOptionForm, setIsOptionForm] = useState(false);
+  const [isShowCreateOption, setIsShowCreateOption] = useState(false);
 
   const [productForm] = Form.useForm();
 
@@ -32,7 +58,14 @@ function ProductListPage({
   }, []);
 
   useEffect(() => {
+    if (isShowModify) {
+      setIsShowCreateOption(false)
+    }
+  }, [isShowModify]);
+
+  useEffect(() => {
     productForm.resetFields();
+    setIsOptionForm(productSelected.productOptions?.length > 0);
   }, [productSelected.id]);
 
   function handleEditProduct(record) {
@@ -107,7 +140,9 @@ function ProductListPage({
       key: productItem.id,
       categoryName: productItem.category.name,
       minMaxPrice: productItem.productOptions.length > 0
-        ? `${(productItem.price + minValue).toLocaleString()} - ${(productItem.price + maxValue).toLocaleString()}`
+        ? productItem.productOptions.length === 1 
+          ? (productItem.price + maxValue).toLocaleString()
+          : `${(productItem.price + minValue).toLocaleString()} - ${(productItem.price + maxValue).toLocaleString()}`
         : productItem.price.toLocaleString()
     }
   });
@@ -122,15 +157,120 @@ function ProductListPage({
     })
   }
 
+  function renderCreateOptionForm() {
+    return (
+      <Card size="small" title="Thêm mới">
+        <Form
+          name="createProductOption"
+          onFinish={(values) => {
+          console.log('🚀 ~ file: index.jsx ~ line 187 ~ renderCreateOptionForm ~ values', values);
+            createOptionAdmin({
+              productId: productSelected.id,
+              ...values,
+              setProductSelect,
+            })
+            setIsShowCreateOption(false);
+          }}
+        >
+          <Form.Item
+            name="title"
+            label="Tùy chọn"
+            rules={[{ required: true, message: 'Bạn chưa điền tên của tùy chọn' }]}
+          >
+            <Input placeholder="Tùy chọn" />
+          </Form.Item>
+          <Form.Item
+            name="price"
+            label="Giá thêm"
+            rules={[{ required: true, message: 'Bạn chưa điền giá của tùy chọn' }]}
+          >
+            <InputNumber
+              formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              placeholder="Giá thêm"
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+          <Row justify="end">
+            <Space>
+              <Button onClick={() => setIsShowCreateOption(false)}>Hủy</Button>
+              <Button type="primary" htmlType="submit">Thêm</Button>
+            </Space>
+          </Row>
+        </Form>
+      </Card>
+    )
+  }
+
+  function renderProductOptionItems() {
+    return productSelected.productOptions.map((optionItem, optionIndex) => {
+      return (
+        <ProductOptionItem
+          key={optionIndex}
+          optionItem={optionItem}
+          productId={productSelected.id}
+        />
+      )
+    })
+  }
+
+  function renderProductOptionForm() {
+    return (
+      <div style={{ marginTop: 16 }}>
+        <h4>Danh sách tùy chọn</h4>
+        {
+          productSelected.id &&
+          productSelected.productOptions.length > 0 &&
+            renderProductOptionItems()
+        }
+        {isShowCreateOption
+          ? renderCreateOptionForm()
+          : (
+            <Button
+              type="dashed"
+              block
+              icon={<PlusOutlined />}
+              onClick={() => setIsShowCreateOption(true)}
+            >
+              Thên tùy chọn
+            </Button>
+          )
+        }
+      </div>
+    )
+  }
+
   return (
     <>
       <Row justify="space-between" style={{ marginBottom: 16 }}>
         <div>Danh sách sản phẩm</div>
         <Button type="primary" onClick={() => handleCreateProduct()}>Thêm sản phẩm</Button>
       </Row>
-      <Table loading={productList.load} columns={tableColumns} dataSource={tableData} />
+      <Table
+        loading={productList.load}
+        columns={tableColumns}
+        dataSource={tableData}
+        expandable={{
+          expandedRowRender: (record) => {
+            return (
+              <List
+                size="small"
+                dataSource={record.productOptions}
+                renderItem={(item) => (
+                  <List.Item>
+                    <Row justify="space-between" style={{ width: '100%' }}>
+                      <div>{item.title}</div>
+                      <div>{(record.price + item.price).toLocaleString()}</div>
+                    </Row>
+                  </List.Item>
+                )}
+              />
+            )
+          },
+          rowExpandable: (record) => record.productOptions.length > 0
+        }}
+      />
       <Drawer
-        title="Chỉnh sửa sản phẩm"
+        title={productSelected.id ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm"}
         width={500} 
         visible={isShowModify}
         onClose={() => setIsShowModify(false)}
@@ -148,7 +288,7 @@ function ProductListPage({
           layout="vertical"
           name="productForm"
           initialValues={productSelected.id
-            ? {...productSelected}
+            ? {...productSelected, hasOption: false }
             : {}
           }
         >
@@ -160,7 +300,18 @@ function ProductListPage({
               {renderCategoryOptions()}
             </Select>
           </Form.Item>
+          <Form.Item name="price" label="Giá gốc">
+            <InputNumber
+              formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              placeholder="Giá gốc"
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+          {productSelected.id && (
+            <Checkbox checked={isOptionForm} onChange={(e) => setIsOptionForm(e.target.checked)}>Tuỳ chọn</Checkbox>
+          )}
         </Form>
+        {isOptionForm && productSelected.id && renderProductOptionForm()}
       </Drawer>
     </>
   );
@@ -168,9 +319,11 @@ function ProductListPage({
 
 const mapStateToProps = (state) => {
   const { productList, categoryList } = state.adminProductReducer;
+  const { productSelected } = state.adminCommonReducer;
   return {
     productList,
     categoryList,
+    productSelected,
   }
 };
 
@@ -181,6 +334,8 @@ const mapDispatchToProps = (dispatch) => {
     createProductAdmin: (params) => dispatch(createProductAdminAction(params)),
     editProductAdmin: (params) => dispatch(editProductAdminAction(params)),
     deleteProductAdmin: (params) => dispatch(deleteProductAdminAction(params)),
+    createOptionAdmin: (params) => dispatch(createOptionAdminAction(params)),
+    setProductSelect: (params) => dispatch(setProductSelectAction(params)),
   };
 }
 
